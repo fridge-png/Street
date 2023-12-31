@@ -1,0 +1,36 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dvtekau57pmu0"]
+
+[ext_resource type="Texture2D" uid="uid://wvkir0a4rxkc" path="res://Textures/Grunt.png" id="1_3i5rm"]
+[ext_resource type="Texture2D" uid="uid://cgnaqp38h50kk" path="res://Textures/GruntTalking1.png" id="2_ey6tf"]
+
+[resource]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3i5rm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3i5rm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ey6tf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_3i5rm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ey6tf")
+}, {
+"duration": 5.0,
+"texture": ExtResource("1_3i5rm")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 6.0
+}]

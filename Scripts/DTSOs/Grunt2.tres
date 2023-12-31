@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DTSO" load_steps=3 format=3 uid="uid://blbvkom615b8g"]
+
+[ext_resource type="Script" path="res://Scripts/DialogueTriggerSO.gd" id="1_a1i3l"]
+[ext_resource type="SpriteFrames" uid="uid://dvtekau57pmu0" path="res://SpriteFrames/Grunt_Frames.tres" id="2_3fvfd"]
+
+[resource]
+script = ExtResource("1_a1i3l")
+sentences = Array[Array]([["Go to other way", "Please"]])
+collision_size = Vector2(600, 300)
+sprite_frames = ExtResource("2_3fvfd")

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://ci4gcwa0kh7p3"]
+
+[ext_resource type="Script" path="res://Scripts/DialogueTrigger.gd" id="1_k4idn"]
+[ext_resource type="Resource" uid="uid://564pxajpefq2" path="res://Scripts/DTSOs/Grunt.tres" id="2_ngsdq"]
+[ext_resource type="SpriteFrames" uid="uid://dvtekau57pmu0" path="res://SpriteFrames/Grunt_Frames.tres" id="3_bfkdp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3l8yu"]
+size = Vector2(300, 200)
+
+[node name="DialogueTrigger" type="Node2D" node_paths=PackedStringArray("collision_shape", "anim_sprite")]
+script = ExtResource("1_k4idn")
+collision_shape = NodePath("Area2D/CollisionShape2D")
+anim_sprite = NodePath("Area2D/AnimSprite")
+metadata/dtso = ExtResource("2_ngsdq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_3l8yu")
+
+[node name="AnimSprite" type="AnimatedSprite2D" parent="Area2D"]
+position = Vector2(0, -53)
+scale = Vector2(0.6, 0.6)
+sprite_frames = ExtResource("3_bfkdp")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,12 @@
+res://MainScene.tscn
+res://SpriteFrames/Grunt_Frames.tres
+res://Scripts/DTSOs/Grunt.tres
+res://Shader/Fog.tres
+res://Scenes/DialogueBox.tscn
+res://Scenes/DialogueTrigger.tscn
+res://Scenes/Player.tscn
+res://Scripts/CameraFollow.gd
+res://Scripts/DTSOs/Grunt2.tres
+res://CharacterBody2D.gd
+res://Scripts/DialogueBox.gd
+res://SpriteFrames/Player_Frames.tres

@@ -1,0 +1,212 @@
+[gd_scene load_steps=24 format=3 uid="uid://dy0gl1ib4fj7f"]
+
+[ext_resource type="PackedScene" uid="uid://cqve3pmbfwdbr" path="res://Scenes/Player.tscn" id="1_3al35"]
+[ext_resource type="PackedScene" uid="uid://ci4gcwa0kh7p3" path="res://Scenes/DialogueTrigger.tscn" id="1_se2v8"]
+[ext_resource type="Texture2D" uid="uid://ro18f4yjnlyb" path="res://icon.svg" id="2_n3co7"]
+[ext_resource type="Shader" uid="uid://dvpusribyqlky" path="res://Shader/Fog.tres" id="3_cs2xk"]
+[ext_resource type="Texture2D" uid="uid://3qvifbl4ln31" path="res://Textures/Env/Ground.png" id="3_o0ydo"]
+[ext_resource type="PackedScene" uid="uid://dynwi2rovn235" path="res://Scenes/DialogueBox.tscn" id="4_xsrmc"]
+[ext_resource type="Texture2D" uid="uid://bmsfl5nnlx1fw" path="res://Textures/Dust_Particle.png" id="6_cg0eu"]
+[ext_resource type="Texture2D" uid="uid://b1n4o32i5x42s" path="res://Textures/Env/Sky.png" id="6_srk6v"]
+[ext_resource type="Texture2D" uid="uid://bs3ku6et0dsmo" path="res://Textures/Env/Background2.png" id="7_0xglu"]
+[ext_resource type="Texture2D" uid="uid://bdhmuh0dtd2yf" path="res://Textures/Env/Background1.png" id="7_qdofw"]
+[ext_resource type="Texture2D" uid="uid://bxu367i5kps7s" path="res://Textures/Env/Background4.png" id="7_s8hbh"]
+[ext_resource type="Texture2D" uid="uid://c3a02x4ems56p" path="res://Textures/Env/Background3.png" id="8_yggpr"]
+[ext_resource type="Texture2D" uid="uid://d00uo07li1r14" path="res://Textures/Env/Fog2.png" id="8_yi8fs"]
+[ext_resource type="Texture2D" uid="uid://bwl1pnota3n83" path="res://Textures/Env/Light2.png" id="9_r0hte"]
+[ext_resource type="Texture2D" uid="uid://dibjm40eufudm" path="res://Textures/Env/Fog1.png" id="11_avuoe"]
+[ext_resource type="Texture2D" uid="uid://cf0drn0h4wulp" path="res://Textures/Env/Light1.png" id="12_16626"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vfs1d"]
+shader = ExtResource("3_cs2xk")
+
+[sub_resource type="Gradient" id="Gradient_gwhjl"]
+offsets = PackedFloat32Array(0.00277008, 1)
+colors = PackedColorArray(0.629675, 0.629675, 0.629675, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jpyhp"]
+gradient = SubResource("Gradient_gwhjl")
+
+[sub_resource type="Curve" id="Curve_ifyn0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.69898, 0.957895), 0.0, 0.0, 0, 0, Vector2(1, 0), -10.5034, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ibdrb"]
+curve = SubResource("Curve_ifyn0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j1q02"]
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_box_extents = Vector3(1920, 1080, 1)
+particle_flag_disable_z = true
+spread = 100.0
+flatness = 1.0
+gravity = Vector3(0, 98, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 70.0
+damping_max = 90.0
+angle_max = 150.0
+scale_min = 0.1
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_ibdrb")
+color_ramp = SubResource("GradientTexture1D_jpyhp")
+turbulence_noise_strength = 3.63
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjhuv"]
+size = Vector2(6179, 533)
+
+[node name="Scene" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_3al35")]
+position = Vector2(845, 578)
+collision_mask = 3
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-845, -603)
+anchor_mode = 0
+limit_top = 0
+limit_bottom = 1080
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+
+[node name="Fog" type="Sprite2D" parent="Player/Camera2D"]
+visible = false
+material = SubResource("ShaderMaterial_vfs1d")
+position = Vector2(831.36, 324.76)
+scale = Vector2(5.21484, 5.21484)
+texture = ExtResource("2_n3co7")
+
+[node name="Fog2" type="Sprite2D" parent="Player/Camera2D"]
+visible = false
+material = SubResource("ShaderMaterial_vfs1d")
+position = Vector2(309.36, 324.76)
+scale = Vector2(-5.215, -5.215)
+texture = ExtResource("2_n3co7")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Player"]
+position = Vector2(2, -15)
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_j1q02")
+texture = ExtResource("6_cg0eu")
+lifetime = 5.0
+speed_scale = 0.5
+randomness = 0.3
+
+[node name="DialogueTrigger" parent="." instance=ExtResource("1_se2v8")]
+position = Vector2(2437, 590)
+
+[node name="DialogueTrigger2" parent="." instance=ExtResource("1_se2v8")]
+position = Vector2(75, 592)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(777, 741)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(183.5, 225.5)
+shape = SubResource("RectangleShape2D_qjhuv")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 64
+z_index = 6
+position = Vector2(0, 365)
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sky" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+position = Vector2(960, 175)
+texture = ExtResource("6_srk6v")
+
+[node name="Fog2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+position = Vector2(960, 175)
+texture = ExtResource("8_yi8fs")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 32
+z_index = 5
+position = Vector2(0, 365)
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Background4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2(960, 175)
+texture = ExtResource("7_s8hbh")
+
+[node name="Light2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2(960, 175)
+texture = ExtResource("9_r0hte")
+
+[node name="Fog2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2(960, 175)
+texture = ExtResource("8_yi8fs")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 16
+z_index = 4
+position = Vector2(0, 365)
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Background3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2(960, 175)
+texture = ExtResource("8_yggpr")
+
+[node name="Fog2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2(960, 175)
+texture = ExtResource("8_yi8fs")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 8
+z_index = 3
+position = Vector2(0, 365)
+motion_scale = Vector2(0.4, 0.4)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Background2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(960, 175)
+texture = ExtResource("7_0xglu")
+
+[node name="Light1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(960, 175)
+texture = ExtResource("12_16626")
+
+[node name="Fog1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(960, 175)
+texture = ExtResource("11_avuoe")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 4
+z_index = 2
+position = Vector2(0, 365)
+motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Background1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(960, 175)
+texture = ExtResource("7_qdofw")
+
+[node name="Fog1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(960, 175)
+texture = ExtResource("11_avuoe")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 2
+z_index = 1
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Fog1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(960, 540)
+texture = ExtResource("11_avuoe")
+
+[node name="Ground" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(960, 540)
+texture = ExtResource("3_o0ydo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("4_xsrmc")]

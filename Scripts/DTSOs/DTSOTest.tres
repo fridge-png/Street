@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DTSO" load_steps=3 format=3 uid="uid://564pxajpefq2"]
+
+[ext_resource type="Script" path="res://Scripts/DialogueTriggerSO.gd" id="1_x3rim"]
+[ext_resource type="Texture2D" uid="uid://wvkir0a4rxkc" path="res://Textures/Grunt.png" id="2_7efsw"]
+
+[resource]
+script = ExtResource("1_x3rim")
+sentences = Array[String](["Hello. How are you", "Suck my big black cock", "eeeee", "ouuuuuuuuuuuuuuuu"])
+collision_size = Vector2(100, 100)
+sprite = ExtResource("2_7efsw")
